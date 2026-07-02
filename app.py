@@ -1,22 +1,56 @@
 import streamlit as st
+import ollama
 
-# Configure the page (must be the first Streamlit command)
+# --------------------------------------------------
+# Page Configuration
+# --------------------------------------------------
 st.set_page_config(
     page_title="Enterprise AI Knowledge Assistant",
     page_icon="🤖",
     layout="wide"
 )
 
+# --------------------------------------------------
+# Header
+# --------------------------------------------------
 st.title("🤖 Enterprise AI Knowledge Assistant")
 
-st.success("✅ Congratulations! Your AI application is running successfully.")
+st.markdown(
+    "Ask anything. Responses are generated **locally** using **Llama 3.2** via **Ollama**."
+)
 
-st.markdown("---")
+st.divider()
 
-st.subheader("Project Information")
+# --------------------------------------------------
+# User Input
+# --------------------------------------------------
+prompt = st.text_area(
+    "Enter your question",
+    height=150,
+    placeholder="Example: Explain what Business Intelligence is..."
+)
 
-st.write("**Project:** Enterprise AI Knowledge Assistant")
-st.write("**Version:** 1.0.0")
-st.write("**Developer:** Mautik Patel")
+# --------------------------------------------------
+# Ask AI
+# --------------------------------------------------
+if st.button("Ask AI", use_container_width=True):
 
-st.info("Next, we'll integrate a local AI model using Ollama.")
+    if prompt.strip() == "":
+        st.warning("Please enter a question.")
+    else:
+
+        with st.spinner("Thinking..."):
+
+            response = ollama.chat(
+                model="llama3.2:3b",
+                messages=[
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ]
+            )
+
+        st.success("Response")
+
+        st.write(response["message"]["content"])
