@@ -153,7 +153,7 @@ The platform retrieves the most relevant information from your uploaded document
 
 ---
 
-<img width="1536" height="1024" alt="how_it_works" src="" />
+<img width="1536" height="1024" alt="how_it_works" src="Images/how_it_works.png" />
 
 
 ---
@@ -243,3 +243,362 @@ Enterprise AI Knowledge Assistant was designed with privacy and security as core
 This makes the platform suitable for organizations that need intelligent document search while maintaining complete control over sensitive information.
 
 ---
+# 🌍 Real-World Enterprise Use Cases
+
+Enterprise AI Knowledge Assistant is designed as a **generic Enterprise Knowledge Platform**, making it applicable across industries and departments.
+
+Whether the knowledge is stored in project documents, company policies, healthcare protocols, emails, contracts, or operational manuals, the platform transforms disconnected information into an intelligent, searchable knowledge base.
+
+Simply upload your organization's documents once, build the Knowledge Base, and start asking questions in natural language.
+
+---
+
+## 📋 Project & Program Management
+
+Large enterprise programs generate hundreds of documents throughout their lifecycle.
+
+Typical documents include:
+
+- Project Charters
+- Business Requirement Documents (BRDs)
+- Functional Specifications
+- RAID Logs
+- Risk Registers
+- Status Reports
+- Steering Committee Presentations
+- Meeting Minutes
+- UAT Sign-offs
+- Deployment Guides
+- Production Support Documents
+- Email Approvals
+
+### Example Questions
+
+- What is the overall project health?
+- Are we on track to meet delivery milestones?
+- What are the highest project risks?
+- Which stakeholder approved Feature X?
+- What issues are still open?
+- Summarize all outstanding action items.
+- Explain how Production Issue #104 was resolved.
+- Which document contains the deployment checklist?
+
+---
+
+## 🏢 Human Resources & Company Policies
+
+Organizations maintain hundreds of internal policies and employee documents.
+
+Typical documents include:
+
+- Employee Handbook
+- HR Policies
+- Leave Policies
+- Travel Guidelines
+- Benefits Documentation
+- Information Security Policies
+- IT Asset Policies
+- Code of Conduct
+- Remote Work Policies
+
+### Example Questions
+
+- What is the maternity leave policy?
+- Can employees work remotely?
+- What expenses are reimbursable?
+- What is the notice period?
+- How do I request a new laptop?
+- What is the password policy?
+- Where can I find the employee code of conduct?
+
+---
+
+## 🏥 Healthcare & Clinical Operations
+
+Healthcare organizations produce large volumes of operational and clinical documentation.
+
+Typical documents include:
+
+- Clinical Guidelines
+- Hospital SOPs
+- Patient Care Procedures
+- Discharge Protocols
+- Quality Manuals
+- Regulatory Documentation
+- Equipment Manuals
+
+### Example Questions
+
+- Explain the patient discharge workflow.
+- What is the sepsis treatment protocol?
+- Which department owns this process?
+- What is the ICU admission criteria?
+- Summarize the medication reconciliation procedure.
+
+---
+
+## 💰 Banking, Finance & Compliance
+
+Financial institutions manage extensive compliance and regulatory documentation.
+
+Typical documents include:
+
+- AML Policies
+- KYC Procedures
+- Internal Audit Reports
+- Fraud Detection Rules
+- Risk Frameworks
+- Regulatory Guidelines
+
+### Example Questions
+
+- What are the fraud detection thresholds?
+- Explain the KYC onboarding process.
+- Which controls are required for AML compliance?
+- Who approves high-risk transactions?
+- Summarize the latest audit findings.
+
+---
+
+## 🏭 Manufacturing & Operations
+
+Operations teams rely on technical documentation every day.
+
+Typical documents include:
+
+- SOPs
+- Maintenance Manuals
+- Safety Procedures
+- Quality Standards
+- Equipment Documentation
+- Troubleshooting Guides
+
+### Example Questions
+
+- What caused the previous production outage?
+- Which maintenance procedure applies to Machine A?
+- What safety checks are required before startup?
+- Show the troubleshooting steps for Error Code 205.
+
+---
+
+## ⚖️ Legal & Contract Management
+
+Legal departments manage contracts, agreements, and compliance records.
+
+Typical questions include:
+
+- Which contract contains this clause?
+- When does Vendor ABC's contract expire?
+- What are the payment terms?
+- Which NDA covers Customer XYZ?
+- Summarize all contractual obligations.
+
+---
+
+## 🎓 Training & Internal Knowledge Base
+
+Organizations can centralize learning materials and internal documentation.
+
+Typical documents include:
+
+- Product Documentation
+- Training Manuals
+- Knowledge Base Articles
+- Technical Guides
+- Onboarding Material
+
+### Example Questions
+
+- Explain how Feature X works.
+- Summarize the deployment process.
+- Where is the troubleshooting guide?
+- What are the coding standards?
+- Which document explains our architecture?
+
+---
+
+## 🚀 One Platform. Unlimited Possibilities.
+
+Enterprise AI Knowledge Assistant is not limited to a specific industry, department, or document type.
+
+Any organization with a growing collection of documents can transform static information into an intelligent AI-powered knowledge platform while maintaining complete control over sensitive data through fully local deployment.
+
+Instead of searching through files, employees simply ask questions—and receive accurate, source-backed answers in seconds.
+
+# ✨ Enterprise Capabilities
+
+Enterprise AI Knowledge Assistant combines Artificial Intelligence, semantic search, and enterprise document management into a single intelligent platform.
+
+<table>
+<tr>
+
+<td width="50%" valign="top">
+
+## 🤖 AI Enterprise Search
+
+Ask questions naturally instead of manually searching hundreds of enterprise documents.
+
+**Key Capabilities**
+
+- Semantic AI Search
+- Context-aware Answers
+- Local LLM (Qwen2.5)
+- Source-backed Responses
+- Natural Language Questions
+
+</td>
+
+<td width="50%" valign="top">
+
+## 📚 Intelligent Knowledge Base
+
+Transform disconnected enterprise documents into one searchable AI-powered knowledge repository.
+
+**Key Capabilities**
+
+- Document Upload
+- Automatic Chunking
+- Embedding Generation
+- ChromaDB Indexing
+- Fast Retrieval
+
+</td>
+
+</tr>
+
+<tr>
+
+<td width="50%" valign="top">
+
+## 🔍 Semantic Search
+
+Find information based on meaning instead of exact keywords.
+
+Example
+
+**Document**
+
+> "Application availability remains within acceptable service levels."
+
+**User asks**
+
+> "Is the application healthy?"
+
+The platform understands both represent the same concept.
+
+</td>
+
+<td width="50%" valign="top">
+
+## 📄 Multi-Format Support
+
+Supports enterprise knowledge stored in multiple document formats.
+
+**Supported Formats**
+
+PDF • DOCX • PPTX • XLSX • TXT • CSV • EML • PNG • JPG • JPEG
+
+OCR automatically extracts text from supported image documents.
+
+</td>
+
+</tr>
+
+<tr>
+
+<td width="50%" valign="top">
+
+## 📑 Source Transparency
+
+Every AI response includes supporting source documents.
+
+Users can:
+
+- Verify information
+- Review original content
+- Increase trust
+- Navigate back to source documents
+
+No black-box AI responses.
+
+</td>
+
+<td width="50%" valign="top">
+
+## ⚙️ Administrator Dashboard
+
+Complete Knowledge Base management.
+
+**Features**
+
+- Upload Documents
+- Build Knowledge Base
+- Rebuild Vector Database
+- Document Statistics
+- Knowledge Status
+- Inventory Management
+
+</td>
+
+</tr>
+
+<tr>
+
+<td width="50%" valign="top">
+
+## 🔒 Privacy First
+
+Enterprise security by design.
+
+✔ Runs Completely Offline
+
+✔ Local AI Models
+
+✔ No Cloud APIs
+
+✔ No Data Leaves Your Machine
+
+✔ Suitable for Confidential Enterprise Data
+
+</td>
+
+<td width="50%" valign="top">
+
+## 🏗 Enterprise Architecture
+
+Designed using modular services for maintainability and scalability.
+
+**Architecture Includes**
+
+- Document Processing
+- Chunking Service
+- Embedding Service
+- Vector Store
+- Retriever
+- Local LLM
+- Streamlit UI
+
+</td>
+
+</tr>
+
+</table>
+
+---
+
+## 💼 Business Value
+
+Organizations can use Enterprise AI Knowledge Assistant to:
+
+| Business Benefit | Value |
+|------------------|-------|
+| ⏱ Save Time | Reduce hours spent searching documents |
+| 📚 Preserve Knowledge | Capture organizational knowledge in one place |
+| 🚀 Improve Productivity | Get answers instantly instead of opening multiple files |
+| 🎯 Better Decisions | Access accurate, source-backed information |
+| 👥 Faster Onboarding | Help new employees learn company knowledge quickly |
+| 🔐 Secure AI Adoption | Keep enterprise data private with fully local AI |
+
+---
+
