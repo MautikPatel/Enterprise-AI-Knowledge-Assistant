@@ -3,6 +3,8 @@ import streamlit as st
 from services.retriever_service import retrieve_chunks
 from services.llm_service import generate_answer
 from components.source_cards import show_source_cards
+from services.vector_store_service import knowledge_base_ready
+
 
 def show_chat():
     st.header("💬 Enterprise AI Assistant")
@@ -31,7 +33,7 @@ def show_chat():
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    if not st.session_state.get("knowledge_ready", False):
+    if not knowledge_base_ready():
         answer = (
             "⚠️ Knowledge Base has not been built yet.\n\n"
             "Go to the **Administrator** tab and click **Build Knowledge Base**."

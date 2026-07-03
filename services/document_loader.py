@@ -10,6 +10,10 @@ from services.loaders.email_loader import extract_all_email
 from services.loaders.image_loader import extract_all_images
 
 
+# --------------------------------------------------
+# Load All Documents
+# --------------------------------------------------
+
 def load_all_documents(folder: Path):
     """
     Load every supported document type.
@@ -27,3 +31,18 @@ def load_all_documents(folder: Path):
     documents.extend(extract_all_images(folder))
 
     return documents
+
+
+# --------------------------------------------------
+# Get Loaded Documents
+# --------------------------------------------------
+
+def get_loaded_documents():
+    """
+    Load all documents from the default
+    enterprise documents folder.
+    """
+
+    folder = Path("data/documents")
+
+    return load_all_documents(folder)

@@ -62,3 +62,13 @@ def clear_vector_database():
     collection = client.get_or_create_collection(
         name="enterprise_documents"
     )
+    
+def knowledge_base_ready():
+    """
+    Returns True if the vector database contains embeddings.
+    """
+
+    try:
+        return collection.count() > 0
+    except Exception:
+        return False

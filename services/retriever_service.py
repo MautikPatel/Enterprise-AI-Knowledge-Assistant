@@ -1,6 +1,6 @@
 from sentence_transformers import SentenceTransformer
 import chromadb
-
+import time
 from chromadb.config import Settings
 
 # --------------------------------------------------
@@ -48,19 +48,24 @@ def retrieve_chunks(question, top_k=8):
     # Semantic Search
     # -----------------------------
 
+  
+
+    start = time.perf_counter()
+
     results = collection.query(
-
-        query_embeddings=[
-            question_embedding.tolist()
-        ],
-
+        query_embeddings=[question_embedding.tolist()],
         n_results=top_k,
-
         include=[
             "documents",
             "metadatas",
             "distances"
         ]
     )
+
+    end = time.perf_counter()
+
+    print("=" * 60)
+    print(f"Retriever Time : {end - start:.2f} seconds")
+    print("=" * 60)
 
     return results

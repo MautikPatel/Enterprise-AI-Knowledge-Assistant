@@ -6,16 +6,21 @@ from services.document_service import (
     get_document_list,
 )
 
-from services.document_loader import load_all_documents
+from services.document_loader import (
+    load_all_documents,
+    get_loaded_documents,
+)
+
 from services.chunk_service import create_chunks
 from services.embedding_service import generate_embeddings
 
 from services.vector_store_service import (
     store_embeddings,
     get_vector_count,
+    knowledge_base_ready,
 )
 
-
+from components.document_inventory import show_document_inventory
 # --------------------------------------------------
 # Build Knowledge Base
 # --------------------------------------------------
@@ -43,9 +48,7 @@ def build_knowledge_base():
             embeddings
         )
 
-    st.session_state.documents = documents
-    st.session_state.chunks = chunks
-    st.session_state.knowledge_ready = True
+
 
     return (
         documents,
@@ -68,15 +71,13 @@ def show_admin_dashboard():
 
     st.divider()
 
-    documents = st.session_state.get(
-        "documents",
-        []
-    )
+   # Always load current documents from disk
 
-    chunks = st.session_state.get(
-        "chunks",
-        []
-    )
+    documents = get_loaded_documents()
+
+    # Always regenerate chunks
+
+    chunks = create_chunks(documents)
 
     try:
 
@@ -136,10 +137,7 @@ def show_admin_dashboard():
 
     with row2[2]:
 
-        if st.session_state.get(
-            "knowledge_ready",
-            False
-        ):
+        if knowledge_base_ready():
 
             st.success("🟢 Ready")
 
@@ -271,38 +269,4 @@ Vectors : {vecs}
     # Enterprise Documents
     # --------------------------------------------------
 
-    st.subheader("📂 Enterprise Documents")
-
-    if not documents:
-
-        st.info(
-            "No documents loaded."
-        )
-
-        return
-
-    for document in documents:
-
-        with st.expander(
-
-            f"{document['document_type']} | {document['filename']}"
-
-        ):
-
-            col1, col2 = st.columns(2)
-
-            with col1:
-
-                st.write(
-                    f"**Pages:** {document['pages']}"
-                )
-
-            with col2:
-
-                st.write(
-                    f"**Characters:** {len(document['text'])}"
-                )
-
-            st.text(
-                document["text"][:1500]
-            )
+    show_document_inventory()
