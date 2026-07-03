@@ -365,8 +365,13 @@ if "documents" not in st.session_state:
     st.session_state.documents = []
 if "chunks" not in st.session_state:
     st.session_state.chunks = []
+from services.vector_store_service import get_vector_count
+
 if "knowledge_ready" not in st.session_state:
-    st.session_state.knowledge_ready = False
+    try:
+        st.session_state.knowledge_ready = get_vector_count() > 0
+    except Exception:
+        st.session_state.knowledge_ready = False
 
 # --------------------------------------------------
 # Sidebar

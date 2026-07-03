@@ -3,13 +3,23 @@ import chromadb
 
 from chromadb.config import Settings
 
-# Load embedding model once
-model = SentenceTransformer("all-MiniLM-L6-v2")
+# --------------------------------------------------
+# Load Embedding Model
+# --------------------------------------------------
 
-# Connect to existing ChromaDB
+model = SentenceTransformer(
+    "all-MiniLM-L6-v2"
+)
+
+# --------------------------------------------------
+# Connect ChromaDB
+# --------------------------------------------------
+
 client = chromadb.PersistentClient(
     path="chroma_db",
-    settings=Settings(anonymized_telemetry=False)
+    settings=Settings(
+        anonymized_telemetry=False
+    )
 )
 
 collection = client.get_collection(
@@ -17,21 +27,40 @@ collection = client.get_collection(
 )
 
 
-def retrieve_chunks(question, top_k=5):
+def retrieve_chunks(question, top_k=8):
     """
-    Retrieve the most relevant chunks for a user's question.
+    Retrieve the most relevant document chunks.
     """
 
-    # Convert question into embedding
+    # -----------------------------
+    # Clean question
+    # -----------------------------
+
+    question = question.strip()
+
     question_embedding = model.encode(
         question,
-        convert_to_numpy=True
+        convert_to_numpy=True,
+        normalize_embeddings=True
     )
 
-    # Search ChromaDB
+    # -----------------------------
+    # Semantic Search
+    # -----------------------------
+
     results = collection.query(
-        query_embeddings=[question_embedding.tolist()],
-        n_results=top_k
+
+        query_embeddings=[
+            question_embedding.tolist()
+        ],
+
+        n_results=top_k,
+
+        include=[
+            "documents",
+            "metadatas",
+            "distances"
+        ]
     )
 
     return results

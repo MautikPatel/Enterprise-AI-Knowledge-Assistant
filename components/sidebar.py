@@ -9,8 +9,9 @@ LLM_MODEL = "llama3.2:3b"
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 
 def show_sidebar():
-    documents = get_document_list()
+    documents = st.session_state.get("documents",[])
     document_count = len(documents)
+
     chunks = len(st.session_state.get("chunks", []))
     try:
         vectors = get_vector_count()
