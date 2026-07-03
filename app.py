@@ -1,6 +1,11 @@
 import streamlit as st
 import ollama
 
+from services.document_service import (
+    save_uploaded_files,
+    get_document_list,
+)
+
 # --------------------------------------------------
 # Page Configuration
 # --------------------------------------------------
@@ -9,6 +14,26 @@ st.set_page_config(
     page_icon="🤖",
     layout="wide"
 )
+
+st.subheader("📂 Enterprise Documents")
+
+documents = get_document_list()
+
+st.write(f"**Documents Available:** {len(documents)}")
+
+uploaded_files = st.file_uploader(
+    "Upload one or more PDF files",
+    type=["pdf"],
+    accept_multiple_files=True,
+)
+
+if uploaded_files:
+
+    if st.button("Save Documents"):
+
+        saved = save_uploaded_files(uploaded_files)
+
+        st.success(f"{len(saved)} document(s) uploaded successfully!")
 
 # --------------------------------------------------
 # Header
