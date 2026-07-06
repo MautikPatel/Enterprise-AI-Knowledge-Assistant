@@ -118,7 +118,14 @@ Organizations can use Enterprise AI Knowledge Assistant to:
 | :---: | :---: |
 | ![Alt Text 7](Images/7_Ask_Another_Question.png) | ![Alt Text 8](Images/8_Another_Response_Source.png) |
 
+--
+## 🏗️ Solution Architecture
 
+<p align="center">
+  <img src="Images/solution_architecture.png"
+       alt="Enterprise AI Knowledge Assistant Solution Architecture"
+       width="100%">
+</p>
 
 ---
 
