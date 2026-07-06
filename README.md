@@ -101,6 +101,18 @@ Organizations can use Enterprise AI Knowledge Assistant to:
 | :---: | :---: |
 | ![Alt Text 1](Images/1_Landing_Page.png) | ![Alt Text 2](Images/2_Admin_Page.png) |
 
+| Upload Document | Build Knowledge Base |
+| :---: | :---: |
+| ![Alt Text 3](Images/3_Upload_Doc.png) | ![Alt Text 4](Images/4_Build_KnowledgeBase.png) |
+
+| Ask Questiion | Response With Source |
+| :---: | :---: |
+| ![Alt Text 5](Images/5_Ask_Question.png) | ![Alt Text 6](Images/5_Response_Source.png) |
+
+| Ask Questiion | Response With Source |
+| :---: | :---: |
+| ![Alt Text 7](Images/7_Ask_Another_Question.png) | ![Alt Text 8](Images/8_Another_Response_Source.png) |
+
 
 
 ---
