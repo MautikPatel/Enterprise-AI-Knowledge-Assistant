@@ -1,0 +1,27 @@
+# ==============================
+# Enterprise AI Knowledge Assistant
+# Version: 1.0.0
+# ==============================
+
+streamlit>=1.46.0
+ollama>=0.5.1
+chromadb>=1.0.15
+sentence-transformers>=5.0.0
+langchain-text-splitters>=0.3.8
+
+# Document Processing
+pymupdf>=1.26.3
+python-docx>=1.2.0
+python-pptx>=1.0.2
+pandas>=2.3.1
+openpyxl>=3.1.5
+Pillow>=11.3.0
+pytesseract>=0.3.13
+
+# Machine Learning
+torch>=2.7.1
+transformers>=4.53.2
+
+# Utilities
+numpy>=2.2.6
+tqdm>=4.67.1
