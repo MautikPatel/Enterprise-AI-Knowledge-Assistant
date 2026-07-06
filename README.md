@@ -96,6 +96,13 @@ Organizations can use Enterprise AI Knowledge Assistant to:
 <img width="1536" height="1024" alt="how_it_works" src="Images/how_it_works.png" />
 
 
+
+| Landing page | Admin Page |
+| :---: | :---: |
+| ![Alt Text 1](Images/1_Landing_Page.png) | ![Alt Text 2](Images/2_Admin_Page.png) |
+
+
+
 ---
 
 ## 💡 From Hours of Searching to Seconds of Answers
