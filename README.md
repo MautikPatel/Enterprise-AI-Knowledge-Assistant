@@ -451,7 +451,7 @@ Passionate about transforming complex business data into meaningful insights thr
 
 If you found this project helpful, please consider giving it a **⭐ Star** on GitHub. Your support, feedback, and suggestions are always appreciated.
 <br>
-### Built with ❤️ using Microsoft Power BI
+### Built with ❤️ using RAG
 
 **Designed & Developed by Mautik Patel**
 
