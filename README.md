@@ -381,4 +381,78 @@ Designed using modular services for maintainability and scalability.
 
 ---
 
+# 🛠 Technical Stack & Engineering Highlights
+
+| Layer | Technologies | Business Impact |
+|-------|--------------|-----------------|
+| **Programming Language** | Python | Rapid development of scalable AI and data processing pipelines |
+| **User Interface** | Streamlit | Interactive web application with Administrator and AI Chat interfaces |
+| **Large Language Model (LLM)** | Ollama, Qwen2.5:3B | Fully local AI inference with no cloud dependency, ensuring data privacy |
+| **Retrieval-Augmented Generation (RAG)** | Semantic Retrieval + Context Injection | Delivers accurate, context-aware responses grounded in enterprise documents |
+| **Vector Database** | ChromaDB | High-performance semantic search across thousands of document chunks |
+| **Embedding Model** | Sentence Transformers | Converts enterprise documents into semantic vector representations for intelligent retrieval |
+| **Document Chunking** | LangChain Text Splitter | Optimizes document segmentation for improved retrieval accuracy and LLM context management |
+| **Document Processing** | PyMuPDF, python-docx, python-pptx | Extracts structured content from PDFs, Word documents, and PowerPoint presentations |
+| **Spreadsheet Processing** | Pandas, OpenPyXL | Reads and processes structured Excel and CSV datasets |
+| **OCR Engine** | Tesseract OCR, Pillow | Extracts text from scanned documents and image-based files |
+| **Knowledge Base Pipeline** | Custom Python Services | Automates document ingestion, preprocessing, embedding generation, and vector indexing |
+| **Application Architecture** | Modular Service-Oriented Design | Promotes maintainability, scalability, and separation of concerns |
+| **Session Management** | Streamlit Session State | Maintains application state, chat history, and Knowledge Base status |
+| **Version Control** | Git, GitHub | Source control, collaboration, and portfolio showcase |
+
+
+---
+
+# 👨‍💻 About the Author
+
+## Mautik Patel
+
+**Enterprise Data, Analytics & AI Transformation Professional**
+
+Passionate about transforming complex business data into meaningful insights through modern Business Intelligence, Analytics, and AI-driven solutions. With expertise spanning healthcare, enterprise reporting, and executive analytics, I design scalable, data-driven solutions that enable organizations to make informed strategic decisions.
+
+### 💼 Areas of Expertise
+
+- 📊 Enterprise Business Intelligence Solutions
+- 📈 Microsoft Power BI & Executive Dashboard Design
+- 🧠 DAX & Advanced Data Modeling
+- 🔄 Power Query (ETL) & Data Transformation
+- 🗄️ SQL Server & Data Warehousing
+- 🏥 Healthcare Analytics & KPI Reporting
+- 📐 Star Schema & Semantic Model Design
+- ⚙️ Enterprise ETL Development
+- 🤖 AI-Driven Analytics & Data Strategy
+- ☁️ Microsoft Fabric (Currently Learning)
+
+### 🌐 Connect
+
+- 💼 **LinkedIn:** https://www.linkedin.com/in/mautikpatel
+- 💻 **GitHub:** [*Explore more enterprise analytics and AI projects*](https://github.com/MautikPatel)
+
+> *"Turning Data into Decisions. Turning Insights into Impact."*
+
+---
+
+<p align="center">
+
+## ⭐ Thank You for Visiting
+
+If you found this project helpful, please consider giving it a **⭐ Star** on GitHub. Your support, feedback, and suggestions are always appreciated.
+<br>
+### Built with ❤️ using Microsoft Power BI
+
+**Designed & Developed by Mautik Patel**
+
+*Enterprise Data • Analytics • AI Transformation*
+
+🚀 *Turning Data into Decisions. Turning Insights into Impact.*
+
+</p>
+
+---
+
+## 📜 License
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+
 
