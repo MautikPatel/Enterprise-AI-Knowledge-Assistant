@@ -1,0 +1,44 @@
+
+PURNIMA BANK
+SentinelAI Fraud Detection Platform
+WEEKLY STATUS REPORT
+SentinelAI Fraud Detection Platform
+Template & Sample Reporting Periods
+Prepared By:	Mautik Patel, Project Delivery Manager
+Distribution:	Sponsor, Steering Committee, Workstream Leads
+Cadence:	Weekly, every Friday COB
+ 
+ 
+Overall Project Health Summary
+Dimension	RAG	Commentary
+Schedule	Amber	Model risk validation start delayed 2 weeks pending vendor contract; mitigation in progress (R-03)
+Budget	Green	Tracking at 98% of planned spend through end of Phase 4
+Scope	Green	No unapproved scope changes; one change request (mobile alerts) deferred to Phase 2 backlog
+Resources	Amber	Fraud Ops analyst availability for pilot labeling below plan; backfill contractor request submitted
+Risk	Amber	Two high risks open (R-01 data quality, R-02 latency); mitigation plans active
+Status Report – Week 18 (May 4 – May 8, 2026)
+Dimension	RAG	Commentary
+Key Accomplishments This Period
+•	Completed feature engineering for velocity-based features; validated against holdout dataset
+•	Signed vendor contract with external model risk validator (resolves scheduling risk R-03 partially)
+•	Delivered RAID log update to Steering Committee; two risks downgraded from High to Medium
+Planned for Next Period
+•	Begin champion/challenger test harness configuration
+•	Complete UAT test case authoring with QA and Fraud Ops
+•	Kick off fairness testing dataset preparation (FR-14)
+Top Risks / Issues
+•	R-01 (data quality): re-labeling sample now 60% complete, on track for May 22 completion
+•	R-02 (latency): switch vendor POC test scheduled for May 15
+Status Report – Week 19 (May 11 – May 15, 2026)
+Dimension	RAG	Commentary
+Key Accomplishments This Period
+•	Switch vendor POC latency test completed: P95 = 178ms, within target (closes R-02 to Low)
+•	UAT test case set finalized (32 cases across 4 functional areas)
+•	Fairness testing dataset prepared; initial disparity analysis shows 6% gap, within threshold
+Planned for Next Period
+•	Begin formal UAT execution with Fraud Ops analysts (2-week window)
+•	Finalize case management API rate-limit increase with vendor (I-02)
+•	Prepare go-live readiness checklist draft for Steering Committee review
+Top Risks / Issues
+•	R-01 (data quality): on track, re-labeling 85% complete
+•	I-02 (API rate limits): vendor committed to Jun 2026 increase; interim queueing buffer holding steady

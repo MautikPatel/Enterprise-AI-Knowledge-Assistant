@@ -1,0 +1,1045 @@
+Received: from OS7P286MB6971.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:42a::13)
+ by OS7P286MB6204.JPNP286.PROD.OUTLOOK.COM with HTTPS; Mon, 6 Jul 2026
+ 06:08:40 +0000
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=XDy2IJIXmenKPw0Qc51ShgGhZWnTuN4s0v9Fg8o1m11Zd/ZNezDKB9Ch3SaXmMvQ4dsyQC1Du4/hKPlgjXYm7fTM7ChDugYGp4Yu8R4EuMsbR8WulOCgHTk8/w3l8GwLfGdbmHSW3UDCsQDXBa4647CaPV6xdqly6qS4EfwwdIzh2WKsLhxFMWKZ0CSLsyjElg7wiSqU8kmZHoy7tQRT73BoVsMxwLUVQFPes0jw6P30L/O8l0jA/ecs9mjEmuEPwtahkxDsnTzUrheMXNQ/qz8MIEXex7UkgF5cV/6GYXQGLw3QFVaFY+bULhTgGRZPwUtPq1SeePdZbgcnQGj/7g==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YV1e2tNEZLUtMTLbHQ+JxD53zeEROsr/8ttlzG56vhs=;
+ b=y5B84VUC3OHxz9ana6oYYSWVXaX4ZkdOZ6310B4iU7Q83L5xDiMwU/ecs68G+Iw/ZrxJQaHYXJs+t9UIVPZA91cHk2SIaAn/jbpmXVeqOH5N0/fgLDchYmp6vMQQLU99uDvYemQPK7aY9rE1FVzpsho9srzf9EejbrtoYS3607hoYbn1GwbfbExtpkr63XLDr6EusazmFajz3f3bd969Mub2gD3On1apoeKgoSEM+lTIFpFj+LhI/g+eUWTfTEorWSIAk42wfyrWibjdSWUKt58ePkTbXlNRmNEh38GbEt7mehhprlrx9zHQD8nTG7bC3zfgkO60Oro/ZJYsovh4Hw==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 52.103.43.1) smtp.rcpttodomain=outlook.com smtp.mailfrom=outlook.com;
+ dmarc=pass (p=none sp=quarantine pct=100) action=none
+ header.from=outlook.com; dkim=pass (signature was verified)
+ header.d=outlook.com; arc=pass (0 oda=0 ltdi=1)
+Received: from BN9PR03CA0444.namprd03.prod.outlook.com (2603:10b6:408:113::29)
+ by OS7P286MB6971.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:42a::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Mon, 6 Jul
+ 2026 06:08:38 +0000
+Received: from BN1PEPF00004687.namprd05.prod.outlook.com
+ (2603:10b6:408:113:cafe::16) by BN9PR03CA0444.outlook.office365.com
+ (2603:10b6:408:113::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.10 via Frontend Transport; Mon, 6
+ Jul 2026 06:08:36 +0000
+Authentication-Results: spf=pass (sender IP is 52.103.43.1)
+ smtp.mailfrom=outlook.com; dkim=pass (signature was verified)
+ header.d=outlook.com;dmarc=pass action=none
+ header.from=outlook.com;compauth=pass reason=100
+Received-SPF: Pass (protection.outlook.com: domain of outlook.com designates
+ 52.103.43.1 as permitted sender) receiver=protection.outlook.com;
+ client-ip=52.103.43.1; helo=TY3P286CU002.outbound.protection.outlook.com;
+ pr=C
+Received: from TY3P286CU002.outbound.protection.outlook.com (52.103.43.1) by
+ BN1PEPF00004687.mail.protection.outlook.com (10.167.243.132) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.6
+ via Frontend Transport; Mon, 6 Jul 2026 06:08:36 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:20FDCAE7613664F53151E32FDA2F92F663E67FD70F667DD9B657D53E3805BE3A;UpperCasedChecksum:A3C1B8F3E2B4A94DD482C1A1849B46927354B32B6CD35FD1C618011A1138C391;SizeAsReceived:8662;Count:40
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dzR3ffn2eOApxdpRgqZoWIenRjK0+VeNwrikNqd2DYxwoopC1ftvH6zDz+gWymHGCuCp2fBN+NlAImP2ZF/hY78nFIkj5AbG9iGGp0oIrAAMm+FsBJCfkEzW+ldXSqYuIysrKf2O2q6BhTe+zsAkNVVjUVnkXQiwWVPXNS2R5mektOhW/f2siZqL/PZl2K4+Cs0fzwkYjBdGc3Tk6tn3JdFKO2UFUDe7gw58EYp3MpaGz3I3CYrL0E0VxHkpabRGTBdUUMYOtK5FCITTncAa0t9CKDRx78wMfNlXQSBlQDBRXsT5HEUOqUHxtimCmkBALmS5U5X688w1+LxeG9UfUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YV1e2tNEZLUtMTLbHQ+JxD53zeEROsr/8ttlzG56vhs=;
+ b=mr3/Y86v+CWxYAnH71Tq90TgnBT9m/1izE12Y1iEF5qRX2Lee59azfQj1lJFfvqk2wWDmHyAXSztySiibvT3i2wpJyRo/9i7m/doUQUOQ77gCAzSroc5NZ3s9Z4/CudmD9VLQhxk+HEEG+RcZt2+X2O1NjSfXvT430cnXrNNjNJtFNYsvpxhPsSuwA/PuLHMMr5xixZKGniQvDFGeZV6Fk2/YAvVY9CdEsT25WFKcI81I/O2sTrSkYgdy44TYFfuDS1qRZkExqLax5dEz+R3s9abwK8KZTRs3TyQeEO8JhSL9sFnrAzi6Rkt8mvVWD+XatUS1Wncr7fCIPQrWaw4bw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YV1e2tNEZLUtMTLbHQ+JxD53zeEROsr/8ttlzG56vhs=;
+ b=Km0pzSRPhg2lx2ymqaWUl/aCN5el7Qn1JF81cehRbBl1lQ5gk5fAcS0fsDO6IvMOKKt0Pxj9V9adF+JsqQU1incp/k136Mtenm979CjwfSIsC5abtOl6BDO3OhDrvQxAg2F2T6kCos3r2vJW51L54WASIuL4HpD1Ts2MSGEVq5yMo8itESHa8U/uWi83nJC963H1po9KslByjiAL7yWq9YWKBF+Ylyx0bYSHwMDh1OX8ActlReU6bxjlJc2PYCpisiRrD5mR/8Yvnq1AYt5eRypmRhlqQbrMISCMuzdMYLJ3eS1uzYtY4lfabaoU9+zDXooU+vMmBU+c8NzsnFYfaA==
+Received: from OS7P286MB6204.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:424::6)
+ by TY7P286MB6547.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:323::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Mon, 6 Jul
+ 2026 06:08:33 +0000
+Received: from OS7P286MB6204.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::8c82:c95c:6272:3f5d]) by OS7P286MB6204.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::8c82:c95c:6272:3f5d%3]) with mapi id 15.21.0181.008; Mon, 6 Jul 2026
+ 06:08:33 +0000
+From: Mautik Patel <mautikpatel@outlook.com>
+To: Mautik Patel <mautikpatel@outlook.com>
+Subject: Fw: TEST PLAN & UAT SIGN-OFF
+Thread-Topic: TEST PLAN & UAT SIGN-OFF
+Thread-Index: AQHdDQoNTfBIR7Xly0ukx0ft2JjKFbZgAV9F
+Date: Mon, 6 Jul 2026 06:08:33 +0000
+Message-ID: <OS7P286MB620487E765B87958A17EE512BFF12@OS7P286MB6204.JPNP286.PROD.OUTLOOK.COM>
+References: <OS7P286MB62044B29D9F1D3C44E0183A6BFF12@OS7P286MB6204.JPNP286.PROD.OUTLOOK.COM>
+In-Reply-To: <OS7P286MB62044B29D9F1D3C44E0183A6BFF12@OS7P286MB6204.JPNP286.PROD.OUTLOOK.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-traffictypediagnostic: OS7P286MB6204:EE_|TY7P286MB6547:EE_|BN1PEPF00004687:EE_|OS7P286MB6971:EE_|OS7P286MB6204:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1ae89774-c4c2-4478-f889-08dedb250448
+X-Microsoft-Antispam-Untrusted: BCL:0;ARA:14566002|8060799015|8062599012|51005399006|31061999003|19110799012|41001999006|15080799012|15030799006|24021099003|12121999013|25010399006|40105399003|440099028|102099032|3412199025|1710799026;
+X-Microsoft-Antispam-Message-Info-Original: =?us-ascii?Q?J/We0Qe6MSnsp0vGUJFTTwzyyVDHzdtLv/0IDCmg++QTjUzcoxsGvqFGD/jF?=
+ =?us-ascii?Q?oRKNKPdFWplM5qjohZ+L6HMWJ9K7+MpWoPXi+X72EKSfDLOme3Rs1YVbtEtB?=
+ =?us-ascii?Q?pHCzWVQunL0YICW8CkahsGGwm/ho1uypxDTMcime0/W/3ngUvRirSpXebf8w?=
+ =?us-ascii?Q?bxxM0j3w7KjaldPq1jOS05KPXkWqHnY1ByVXvbKNUAzWFOCBXIs9az9f9NvD?=
+ =?us-ascii?Q?t28K9UfNONZG8v20VZLaklAjPqm1SrP3mkml4m0z/3RLWPLAk27xrpBGh341?=
+ =?us-ascii?Q?9xZDMYWhezpA2Itj9KkIFvQKJkO3DrJAeCDZ3nd/+ZThPZmK49dab8nNT+GE?=
+ =?us-ascii?Q?68v26LbBRfxZ7tx5xkvxNYAtQuxHrlkGVAMmcqrFt/HCTruV6egAQ0J8fOi0?=
+ =?us-ascii?Q?d1cTLz3UGaJBGHRnQqiAUmeunZ4j2y4ajv8kdNb03+EJb8lYspjFVRAZ9epq?=
+ =?us-ascii?Q?bODZFW8Qliw5tC+9SJS0b0F1Z7LI+NaP4Nl9Zd+cgtga1IkeX1GpWY411hqH?=
+ =?us-ascii?Q?CKmS0nmEId+lgKfuwiy4Ff+58XKF7hvoIj4uUrPIu2HjpffO0RZMKcT4fD5Z?=
+ =?us-ascii?Q?TcK3RpM7xc3CaQV8uMYZ1WLeuBJiYEZC8bxreWguxPPpjiUJfYy6DE1iczog?=
+ =?us-ascii?Q?k2Rb6rse2leZfbxlh+s5w2uYMblLsR4vRxqZRikObRsHIBVpK7V07cfYA7hM?=
+ =?us-ascii?Q?lHAo0mFGR4dOi8Xgij8AniTF3U46nkQ9bHauBIB31qSbfW/Zxl91vPl4kAiq?=
+ =?us-ascii?Q?8uB38c8i1I/s6yz8TZ9HEIsn0u1MEmsUnSCnrHY3PIffOok+ObpXnbuK9Mxm?=
+ =?us-ascii?Q?KQaaHy4UCCkNvMNOt+/jWgycBXTMP8/hr1m7OIRe4BQLc8ZOVZ0t4yyK2b20?=
+ =?us-ascii?Q?ylDukvoZjgMvICPYEyB2rglXCKrPzNanHmReiRLgLHEucrN7WBRlYYG82bs9?=
+ =?us-ascii?Q?NSV8NHXvHykraSEXWOL+NJL/FVybVFsuUJn9NG9oqoRSREuxv1gchF4/E+Br?=
+ =?us-ascii?Q?Faz9n9xLj9XCgV1lhPujpEy3Sexuvgf2d/mkb7d5FkC/tu16x6/SrjqbPsQX?=
+ =?us-ascii?Q?odk9DrgC?=
+X-MS-Exchange-AntiSpam-MessageData-Original-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-Original-0: =?gb2312?B?SGo5NzJGRDd5Z3FQU1NURWZBMEFja3ZnQlY4bGQ5Q0ZPeThWSHE0WmVTbDls?=
+ =?gb2312?B?cEtuMEFOR0FHYmM4Wm9jYkYzbExWM1IwZVNneDhPbkFxUXU2a1BoRzVkY1pm?=
+ =?gb2312?B?eXBjK0ozT2tGczgxTDNKUEJnb2hVRDVDR3RzSCtyQmJOUFQxQVpPZXhmck9r?=
+ =?gb2312?B?Z3FaVUpNZnlmbUs2d3BTWDBWdVJjbkEzYmFTKzFyYTQ5RVN0Q0R2RTlRL0xr?=
+ =?gb2312?B?bEIrVzdUcHR4RHFHMnZCOVgzSjU3UmRzWnRhK0orVXdjVVpzKzg4NmtSRHIw?=
+ =?gb2312?B?emtxU3ZNZmdXbGVCSnVRaGI5NDQxZXBNV3k3Rmh6bG5YL2JYak84eXZZTjVL?=
+ =?gb2312?B?R1RxTjlUOUl5MWhrTnRPRFJUSTFKVEdSWnpxbys1OXZLOE5LakR0a0htK2lT?=
+ =?gb2312?B?RVBQMmNQWHBwZmdaUUpiQkwzNmMrdS9kYXFySFNxYnZETG5vditvV0VsckxK?=
+ =?gb2312?B?R1NCSFczd2h6dmhReGdJRVdlemVHQ3hYa0czMEhWazgvRFZOSjZRSXFZWmlw?=
+ =?gb2312?B?Y25jVmFGSXB0NnpuU0VQanVwREpScGxQczBLb3RuQzBuSkl3YWRyMnMwQ1gv?=
+ =?gb2312?B?M3Z5dlpRZ2VyVWpUVzN0ZUx2SFhISEhYaHRUcEt1NWMzUnliTGw3RFFZUWl6?=
+ =?gb2312?B?a3dZeVlXUlpkeW5rWDdmUXVHSGdZRVhkcnppT0VJT0x4eDAxQUJoWnJzT1Rj?=
+ =?gb2312?B?bjJsZTNkZC9mZ0plaENqVm01WVA4ams0RGE1QXhkRkhRdzAxVlBrY0ZLaWZP?=
+ =?gb2312?B?R3FMQmdSVTNqd3R1d3JXa0FDdkpzRUY3ejdLNjV6UlE3bVowQy81Rm10TVBp?=
+ =?gb2312?B?YnAvZW4zZmRjOTlXSXFiaUVmS3BFaXZsczhKWkZKSDBpSnhtcWtPcGxBeTQw?=
+ =?gb2312?B?bkhGUDQ2bi9MYVI2dWdQT2YyTEVVS0FyUEhReWQ5MU5kczVnQjlPWXZ2ZUtS?=
+ =?gb2312?B?enhlSG44Q1pDL1FqRUVwbm9pNkQyK29GS1U3Q0N4M1Fzc21oV2xoZXB4M2o0?=
+ =?gb2312?B?endBNDBOa1BhQU5WVk1NU0t1N1JnVVZMWWtTTHZHYTVoRnJGeENEQkx3SGha?=
+ =?gb2312?B?MW5ocGFYZTUwMzRyb3dpb3V4NUZoMlp0bUdkS0xRb3hQc2hVaHpWcE9GUFRy?=
+ =?gb2312?B?MzUxdU1KT1hTaTFTMDcvdmd6cnVpYWRjeUpUZVVRajdhTkI4V2JNcWhZN2Z6?=
+ =?gb2312?B?YXNOelB3TEJ1clBLbVlyQUlDMmZQcm8wS3k2cU1wb2dmZ3pPNzJ3QzVnQ1JN?=
+ =?gb2312?B?ajZhaUQ0cXVFQkhGeUxyRHVDTjE4Q0FtaFdqbktXTXFyMndMYlZjYVZwSTgr?=
+ =?gb2312?B?TGZRSlFqOWVjblJYdE1wUW1jd0w4WFd3WjQyTHNlSjNGeFlFWW8vNExpclJK?=
+ =?gb2312?B?a1g2Um1ROThLMWVUL1N0N2dEbTRlMDNwWURkMEpodTlrQU5LRlY5bTV2NGha?=
+ =?gb2312?B?Z2x4Q2JUM3hURDFGcUY4UDc5bWJhZ29iVys2UGh4TlZocmFjV0xMVm43UE9r?=
+ =?gb2312?B?aGNxSm1HMWYyTFg4azBuSlRQY2RCUlhNTkxGVXJSd2lqTS96WFI4RE53TERp?=
+ =?gb2312?B?OGJJQ0hCcTFmUXZWZG1WeFFzem0zZFljOWQrWXFPZFpIK2RCVldlNFJXWllv?=
+ =?gb2312?B?RHQrOUlGZUR6T3hhYVB0S1JpRStpTHRkTURWcjFNUnBqL1MvYWJJMHc4TW92?=
+ =?gb2312?B?WXVuQUhXb2JPazIycnRWeG8vVUpVSlJ5QThZQVFJNk9UQ2ZSTVF4a2xaRWg5?=
+ =?gb2312?B?K0F2NjB6a0pCRDdYU1JUVVZDWGh0Y0tmd243RGJuS2M3OTBpRWZCVVRkZUNB?=
+ =?gb2312?B?SkZGUmRqV2hhOG4xTW1nOGpTLzk0c2tJdU9FaFJob2NiTGpROVpIRVJtZ2Va?=
+ =?gb2312?B?N2g5L2tFM1FIeitXeVZyR05xT21vTXF6a2xFQUJTWE50RDVib3Q1V3JKalN3?=
+ =?gb2312?Q?SjibjiFluv5ZTUuIKOKWPrVaTTp6ACw6?=
+Content-Type: multipart/alternative;
+	boundary="_000_OS7P286MB620487E765B87958A17EE512BFF12OS7P286MB6204JPNP_"
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY7P286MB6547
+X-IncomingHeaderCount: 40
+Return-Path: mautikpatel@outlook.com
+X-MS-Exchange-Organization-ExpirationStartTime: 06 Jul 2026 06:08:36.5353
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id: 1ae89774-c4c2-4478-f889-08dedb250448
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: BN1PEPF00004687.namprd05.prod.outlook.com
+X-MS-Exchange-Transport-CrossTenantHeadersPromoted: BN1PEPF00004687.namprd05.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Exchange-Organization-AuthSource: BN1PEPF00004687.namprd05.prod.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-MS-UserLastLogonTime: 7/6/2026 6:08:33 AM
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 27cb5a77-2324-4011-b2e6-08dedb25024d
+X-Sender-IP: 52.103.43.1
+X-MS-Exchange-EOPDirect: true
+X-SID-PRA: MAUTIKPATEL@OUTLOOK.COM
+X-SID-Result: PASS
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:0;ARA:1444111002|3069299007|5149299006|29090799004|47200799027|13020799009|58200799025|7140799003|19300799024|43111999003|28130799009|30041999003|1370799030|1360799030|1380799030|440099028|3412199025|1710799026;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 06:08:36.0126
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ae89774-c4c2-4478-f889-08dedb250448
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004687.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7P286MB6971
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:04.0575533
+X-MS-Exchange-Processed-By-BccFoldering: 15.21.0181.008
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:0;jmr:0;ex:0;auth:1;dest:I;OFR:SpamFilterPass;ENG:(5062000311)(920221119095)(90000117)(920221120095)(90011020)(91015020)(91040095)(9050020)(9060121)(9081003)(9100341)(1000006)(944500132)(2008001181)(4810010)(4910033)(9920006)(9510006)(10105021)(9320005)(9230038)(120001);
+X-Message-Delivery: Vj0xLjE7dXM9MDtsPTA7YT0wO0Q9MTtHRD0xO1NDTD0tMQ==
+X-Microsoft-Antispam-Message-Info:
+	=?gb2312?B?YXNLSHB3S3UrSXhoVXRDSG9hZGtaYnFPMnFKUVlRbXIxcUJBcUNwU3JnbzVD?=
+ =?gb2312?B?T1p6SVB1VThDYmNiNmg4WDZoOGRSaTg1dHczaGxUcTFReEVqeXpaUHdyR2Y2?=
+ =?gb2312?B?SWJFbVhVT2MxeGJobXJBV21vY3hqSjMvSmZydVhpYTI4dCs1Z0xLLzd4eHhm?=
+ =?gb2312?B?R1NTK1BjVzlLTVVWTnNrN0Z3OXM2MVR6clZMRE84eVR3UnpoUW1FQ2d2T0hr?=
+ =?gb2312?B?NDRJTW9Rak85d3c2MmUxZERSWXpLbHAwRkxONmxJYzQzSWxVbVVkY25OZHdj?=
+ =?gb2312?B?emJWeTdwdW1NY1hwZGc4azB6aysxR1ZZSk5kRVFtVWEweVcxUDZZQmxQVHpv?=
+ =?gb2312?B?am1xa1crMnMrdis1VFRUenE3Rkh1NENDS0tkMzJwblRYTFpkVWdWcGYrQ252?=
+ =?gb2312?B?cVZtQ3ZuaGhtbkhOSmxqNnlFOUNmUWRoNFg5L0pYNUVzeEp4NUtTdGROVFNT?=
+ =?gb2312?B?RXUrNFIwbGxUa0M2NDhxS1Y1RzVLWWRDZnJleHFWUHB4R3h4V1pGVmxBU25y?=
+ =?gb2312?B?NTBaMmNKTElVWW5RNXc2REk0a2dtYUM1VEFEcFMwVjQ5U0svWmZYZ2lQWmpS?=
+ =?gb2312?B?SDEyS0lXMkkzVmVnYW92Ungvc0lLZjR5Z2o4MXg5TU44TmRCaUJSRk1hNFFB?=
+ =?gb2312?B?T21LdjJ4MWJEblFRSjFtVHcwZzVQOXBHTkQ1SjBmOFkrb0E0c24vbnRJZDJ3?=
+ =?gb2312?B?SVVDUFF2K1hpVzhkZm5tK1pqVmI0cWEwYzNOdGJ0ekIzdjFYeGcreCtCdjlU?=
+ =?gb2312?B?b1c1VVhJZFppaXNrWVpOb2s2cGt4YzBOU2laSlNYSWxMUHpKWktaaGFIcjlN?=
+ =?gb2312?B?TUJjVE5zNHJSN1pNYmZjSHVpQWxUdWR5LzFnVExKSEtRVDIxNXlmVUF5WjI0?=
+ =?gb2312?B?dmNmelM2MWlGOUN2NnZiYUdnYTJQZFpha3kyY0RBQmM3c2xqZi9haEE5MzNv?=
+ =?gb2312?B?enhvWitQNzhCcGZpYXpEbDk5azFWQmF3UkVzcnpsR2ZuMkdQRGlIc0YzTWpo?=
+ =?gb2312?B?OGV2Z2trdHE4aHRESWFQMHl5YnJRaExmMkJna2ljYVhrY3FHNU1CamlkRHcw?=
+ =?gb2312?B?MnZXUE02MDNMdjFwQ04vQ3lRZlBpRnJzbWVIaG0wbzJNbm4zSTQ3Umh1bTBD?=
+ =?gb2312?B?dkdUZDZ0S3NDNUNYWHFYdXA0NFVBaTJGU2hJRWVLTWwrKzQ4enkyL25aMzlS?=
+ =?gb2312?B?ajFiWUtGenAxOTE4V2dLb2U2VnVXdjZLUUVJZE8rSkFaTTl5b2JMV2RRbXRl?=
+ =?gb2312?B?R0xNa1VUM0JHbDZ3MmZEK0FsS1h6T09pa2p6Y2NyVDBjVmZ0ZER4VjdKd0g3?=
+ =?gb2312?B?SzdNc0tTVlk3U1JEV2dJb0lZWFVXVU5ocWoxdWF6Wkk3bUxYeDZaRDE5U2Vv?=
+ =?gb2312?B?SW80VWxhOHNlOHVNY3BlWjF2L3d5UVJGTW9oR2lQMHJhaEFsbnVPMnYvZENq?=
+ =?gb2312?B?RW5OekV6eUJsK1FmcWJsVkx6dERCUXptNWNwVHRVdHd5Qk9xQzJwNkVFcXRT?=
+ =?gb2312?B?N0IxVkJYSVArejdwUUtEMTRKSGp0MjVQbHRxZk8yeFVqWHM3dDFmR3Rhdkpy?=
+ =?gb2312?B?MzkwRU1JVzZGc0doN3FXQW0vbFRiUFlnNTNzM3FHZ1k1UTY5KzBBRTAxbm11?=
+ =?gb2312?B?NnJoOGZHdmpXWTJ3ZmJsVnYxdDJBOUtqS0RMTm5ZV2k0NkVBTXlOMmV5N3Nx?=
+ =?gb2312?B?anN3VDBQZ2Z2LzlNazI3RlJXYnk5N3JFMHJLN2V6eVBqSGdudmJLMWhTcUZ2?=
+ =?gb2312?B?anQxZC9aOTErTkdpU2I1aGlsSVQ5MHpVZ3I0R1ltVmZ2ZnY4c0tSd3Rpb3ZX?=
+ =?gb2312?B?Rm94Z3lxK0FPcDBkQy9YcW9GdXp0VWtRdGkvbVdSU21vUitudEJGcVlGVkps?=
+ =?gb2312?B?WldIZmhybVhVaER1TkI3ZXFKMDAzcktpMFFOZzZHUGRpQ0N1TnN6MUl6TnpY?=
+ =?gb2312?B?UjhMZWhxVU5WaFd0Y0FjMG4yMWdhamdyVjJhaUhkclB1b25kZHFXNWo2VnZQ?=
+ =?gb2312?B?RkwrNnpWTWdPMjhUQ2cyQTZNcjBYOHpYN1dqanFRbkVTNlNnd3dsYThWdjNa?=
+ =?gb2312?B?MkRvN0VpOWpCbHhmVUVUdW1jTEVraUhmZlB6TURjSkxoaUhJMVBtZGJ6Y3NE?=
+ =?gb2312?B?S2lwSnBOWE4vVDhYbWkzTTMzcXhtVnRVbE9SUEh3cUVaZ1lTcXR4UitIYWtK?=
+ =?gb2312?B?d3dGN1RWQ3M5dFZ3TjhleHdFZFQzeXI1amF3S2tHWUs0dnlzT3BJNDY4SnBh?=
+ =?gb2312?B?MGpaWC9mUFJWeUxhTFdMQVgveXRRMlpORm1zaWxWVlVubzY2aGlPMDJIdmZw?=
+ =?gb2312?B?UFBBQ1Z5cEx2VTY3aE1Cbm5lU2dQVnYzeHkrT050R1l0ZFdTUU9QRTArektp?=
+ =?gb2312?B?eGhLNFg3cE9CTHVVbktGai9UMm9nZTNKdlBTYnExNllRSlFzMDVramtFTDg5?=
+ =?gb2312?B?bTZiL3ZVa0E5YkR3NUd5Q0NrNTJsWWpBWjV0ZkROVzVUSUxVWURpS3g1S1hk?=
+ =?gb2312?B?ZDZpdkpWTy9SdVpvYTdmc3FyMkdmUjJTWFpIM29pa1BpTkpDRjg0b25hdzNi?=
+ =?gb2312?B?dVpFbHBWTDlQSGQ2SFppcXkvUFlNRlRMN1VGaklKWU1lR29qdWhyQVd4aktt?=
+ =?gb2312?B?TkJBUWhHajlIMFVlRlRGSUVQMjdtYVZVZ1ZmenBlQitBVXRXMHdkYmlReDZn?=
+ =?gb2312?B?RkxYY2VDbDEwTDVES2lJVFRldTdmdjNDTnlZMi9MWU14UmFydzFXU0xZZTVT?=
+ =?gb2312?B?Q2ErOW1yNUhTMWlsOGRPWUZlWFFwNEtwWS8vMUZEWkN3U2d6eTc2S0ZtMjFo?=
+ =?gb2312?B?QmxiRHV4aXJ5UkxvZkVuQTFUeHlCc2JUZU1XZmx6RnVZVndtWGZCalNpRDdC?=
+ =?gb2312?B?c0ZGTG1VQTV4Mis5eDNyMWpHZnNFZmJBSnB3eEpYVlcwaFc3dHl5d1JOY2R6?=
+ =?gb2312?B?czdxN2VSL01jdXE1YjZSUU5xdVVwanhWMTcwVzR3b3cvWlVSVlEzZDM5L3U3?=
+ =?gb2312?B?VVpCcGlXczB3Rno1bW5EbytjWnhmclV5S0pMV25YWkptblhnRzhPNXorV2hu?=
+ =?gb2312?B?dklUTjZVQ255QVdTcmRMWGw1VFFYL2ZCM1JwOEMzQ1FKbWR0aWY5OTdMVm9L?=
+ =?gb2312?B?VE1ydGFGU2ZrYjZ0VWNKWkRUV2pEWmxrc2ZEaVREUDN0eThkSWhOYldMaUVV?=
+ =?gb2312?B?VHhUQ1krVGxtR05KSVZCVVpQc0ZjdFFWM2ZKMDZXR3J3V3Y5TlhwQUZJaEtB?=
+ =?gb2312?B?YjBvaEl6K1hDSWJGamRCay9tbGt3SGFVOStmd0dPMThMSkJwZ1ZOa3JNeGZp?=
+ =?gb2312?B?emNWckczeEJRbXNIV2FiTnJoZFo1c2JkRzJQZmY4b3BWeDRyNnFDTTBjeWFB?=
+ =?gb2312?Q?=3D?=
+MIME-Version: 1.0
+
+--_000_OS7P286MB620487E765B87958A17EE512BFF12OS7P286MB6204JPNP_
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
+
+DQoNClBVUk5JTUEgQkFOSw0KU2VudGluZWxBSSBGcmF1ZCBEZXRlY3Rpb24gUGxhdGZvcm0NClRF
+U1QgUExBTiAmIFVBVCBTSUdOLU9GRg0KU2VudGluZWxBSSBGcmF1ZCBEZXRlY3Rpb24gUGxhdGZv
+cm0NClRlc3QgU3RyYXRlZ3ksIFRlc3QgQ2FzZXMgJiBVc2VyIEFjY2VwdGFuY2UgU2lnbi1PZmYN
+CkRvY3VtZW50IE93bmVyOg0KTWF1dGlrIFBhdGVsLCBQcm9qZWN0IERlbGl2ZXJ5IE1hbmFnZXIN
+ClFBIE93bmVyOg0KUUEgRW5naW5lZXJpbmcNClZlcnNpb246DQoxLjANCkRhdGU6DQpNYXkgNSwg
+MjAyNg0KDQoNCg0KMS4gVGVzdCBTdHJhdGVneQ0KVGVzdGluZyBvY2N1cnMgYWNyb3NzIGZvdXIg
+bGV2ZWxzOiB1bml0IHRlc3RpbmcgKGVuZ2luZWVyaW5nLCBjb250aW51b3VzKSwgaW50ZWdyYXRp
+b24gdGVzdGluZyAoc2NvcmluZyBBUEkgYW5kIGNhc2UgbWFuYWdlbWVudCwgUGhhc2UgNSksIG1v
+ZGVsIHZhbGlkYXRpb24gdGVzdGluZyAob2ZmbGluZSBwZXJmb3JtYW5jZSBhbmQgZmFpcm5lc3Ms
+IFBoYXNlIDYpLCBhbmQgVXNlciBBY2NlcHRhbmNlIFRlc3RpbmcgKFVBVCkgd2l0aCBGcmF1ZCBP
+cGVyYXRpb25zIGFuYWx5c3RzIHByaW9yIHRvIHRoZSBwcm9kdWN0aW9uIHBpbG90LiBVQVQgZXhp
+dCBjcml0ZXJpYSByZXF1aXJlIDEwMCUgb2YgQ3JpdGljYWwgYW5kIEhpZ2ggcHJpb3JpdHkgdGVz
+dCBjYXNlcyB0byBwYXNzLCB3aXRoIG5vIG9wZW4gU2V2ZXJpdHkgMSBkZWZlY3RzLg0KMi4gVGVz
+dCBFbnZpcm9ubWVudHMNCkVudmlyb25tZW50DQpQdXJwb3NlDQpEYXRhDQpERVYNCkZlYXR1cmUg
+YW5kIG1vZGVsIGRldmVsb3BtZW50DQpTeW50aGV0aWMgKyBhbm9ueW1pemVkIGhpc3RvcmljYWwg
+c2FtcGxlDQpRQS9JTlQNCkFQSSBpbnRlZ3JhdGlvbiBhbmQgcmVncmVzc2lvbiB0ZXN0aW5nDQpN
+YXNrZWQgcHJvZHVjdGlvbiByZXBsaWNhIChQQ0ktc2NvcGVkKQ0KVUFUDQpBbmFseXN0IGFjY2Vw
+dGFuY2UgdGVzdGluZw0KTWFza2VkIHByb2R1Y3Rpb24gcmVwbGljYSwgY3VyYXRlZCBzY2VuYXJp
+byBzZXQNClBpbG90IChQcm9kKQ0KQ2hhbXBpb24vY2hhbGxlbmdlciwgMTAlIGxpdmUgdHJhZmZp
+Yw0KTGl2ZSBwcm9kdWN0aW9uIGRhdGENCjMuIFVBVCBUZXN0IENhc2VzIChTYW1wbGUpDQpUQyBJ
+RA0KVGVzdCBTY2VuYXJpbw0KRXhwZWN0ZWQgUmVzdWx0DQpUcmFjZXMgdG8NClRDLTAxDQpMZWdp
+dGltYXRlIGxvdy1yaXNrIENOUCBwdXJjaGFzZSB3aXRoaW4gbm9ybWFsIHNwZW5kaW5nIHBhdHRl
+cm4NClNjb3JlIDwgdGhyZXNob2xkOyB0cmFuc2FjdGlvbiBhcHByb3ZlZCB3aXRoIG5vIGNhc2Ug
+Y3JlYXRlZA0KRlItMDENClRDLTAyDQpIaWdoLXZlbG9jaXR5IHRyYW5zYWN0aW9ucyAoNSsgaW4g
+MTAgbWluKSBhY3Jvc3MgZGlmZmVyZW50IG1lcmNoYW50cw0KU2NvcmUgPiB0aHJlc2hvbGQ7IGNh
+c2UgYXV0by1jcmVhdGVkIHdpdGggJ3ZlbG9jaXR5IHNwaWtlJyByZWFzb24gY29kZQ0KRlItMDUs
+IEZSLTA5LCBGUi0xMA0KVEMtMDMNClRyYW5zYWN0aW9uIGZyb20gYSBkZXZpY2UvSVAgZ2VvbG9j
+YXRpb24gPjUwMCBtaWxlcyBmcm9tIGNhcmRob2xkZXIgaG9tZSBhZGRyZXNzDQpTY29yZSBlbGV2
+YXRlZDsgJ3VudXN1YWwgbG9jYXRpb24nIHJlYXNvbiBjb2RlIHJldHVybmVkDQpGUi0wNiwgRlIt
+MTANClRDLTA0DQpTY29yaW5nIHNlcnZpY2UgdW5hdmFpbGFibGUgLyB0aW1lcyBvdXQgYmV5b25k
+IDQwMG1zDQpGYWxscyBiYWNrIHRvIGxlZ2FjeSBydWxlcyBlbmdpbmU7IGZhbGxiYWNrIGV2ZW50
+IGxvZ2dlZA0KRlItMDQNClRDLTA1DQpBbmFseXN0IHN1Ym1pdHMgY2FzZSBkaXNwb3NpdGlvbiBh
+cyAnZmFsc2UgcG9zaXRpdmUnDQpEaXNwb3NpdGlvbiByZWNvcmRlZCBhbmQgYXZhaWxhYmxlIGlu
+IGxhYmVsZWQgcmV0cmFpbmluZyBkYXRhc2V0IHdpdGhpbiAyNCBob3Vycw0KRlItMTENClRDLTA2
+DQpGYWlybmVzcyBjaGVjayBjb21wYXJpbmcgZmFsc2UtcG9zaXRpdmUgcmF0ZSBhY3Jvc3Mgemlw
+LWNvZGUgaW5jb21lIHRpZXJzDQpEaXNwYXJpdHkgcmVtYWlucyB3aXRoaW4gdGhlIDEwJSB0aHJl
+c2hvbGQgZGVmaW5lZCBieSBDb21wbGlhbmNlDQpGUi0xNA0KVEMtMDcNClBlYWsgbG9hZCBzaW11
+bGF0aW9uIGF0IDEsMjAwIHRyYW5zYWN0aW9ucy9zZWNvbmQNClA5NSBsYXRlbmN5IHJlbWFpbnMg
+odwyMDBtcyB3aXRoIG5vIGRyb3BwZWQgcmVxdWVzdHMNCkZSLTAyLCBORlItU2NhbGFiaWxpdHkN
+ClRDLTA4DQpRdWVyeSBvZiBhIDE0LW1vbnRoLW9sZCBzY29yaW5nIGV2ZW50IGZvciBhIGRpc3B1
+dGUgaW52ZXN0aWdhdGlvbg0KRnVsbCByZWNvcmQgKG1vZGVsIHZlcnNpb24sIGZlYXR1cmVzLCBz
+Y29yZSwgZGVjaXNpb24pIHJldHJpZXZhYmxlIHdpdGhpbiBTTEENCkZSLTEyDQo0LiBEZWZlY3Qg
+U2V2ZXJpdHkgRGVmaW5pdGlvbnMNClNldmVyaXR5DQpEZWZpbml0aW9uDQpTZXZlcml0eSAxIKhD
+IENyaXRpY2FsDQpTeXN0ZW0gdW51c2FibGUsIGluY29ycmVjdCBmcmF1ZCBkZWNpc2lvbiBhdCBz
+Y2FsZSwgb3IgcmVndWxhdG9yeSBub24tY29tcGxpYW5jZTsgYmxvY2tzIGdvLWxpdmUNClNldmVy
+aXR5IDIgqEMgSGlnaA0KTWFqb3IgZnVuY3Rpb24gaW1wYWlyZWQgKGUuZy4sIHJlYXNvbiBjb2Rl
+cyBtaXNzaW5nKTsgd29ya2Fyb3VuZCBleGlzdHMgYnV0IGRlZ3JhZGVzIFVBVCBjb25maWRlbmNl
+DQpTZXZlcml0eSAzIKhDIE1lZGl1bQ0KTWlub3IgZnVuY3Rpb25hbCBnYXAgd2l0aCBsaW1pdGVk
+IGJ1c2luZXNzIGltcGFjdA0KU2V2ZXJpdHkgNCCoQyBMb3cNCkNvc21ldGljIG9yIGRvY3VtZW50
+YXRpb24gaXNzdWUNCjUuIFVBVCBTaWduLU9mZg0KVGhlIHVuZGVyc2lnbmVkIGNvbmZpcm0gdGhh
+dCBVc2VyIEFjY2VwdGFuY2UgVGVzdGluZyBoYXMgYmVlbiBjb21wbGV0ZWQgYWdhaW5zdCB0aGUg
+dGVzdCBjYXNlcyBhYm92ZSwgdGhhdCBhbGwgQ3JpdGljYWwgYW5kIEhpZ2ggc2V2ZXJpdHkgZGVm
+ZWN0cyBoYXZlIGJlZW4gcmVzb2x2ZWQgb3IgZm9ybWFsbHkgd2FpdmVkLCBhbmQgdGhhdCB0aGUg
+c3lzdGVtIGlzIGFwcHJvdmVkIHRvIHByb2NlZWQgdG8gdGhlIHByb2R1Y3Rpb24gcGlsb3QgcGhh
+c2UuDQpOYW1lIC8gUm9sZQ0KRGVjaXNpb24NCkRhdGUNCkRhdmlkIE9rb25qbyCoQyBIZWFkIG9m
+IEZyYXVkIE9wZXJhdGlvbnMNCkFwcHJvdmVkDQpKdWwgMSwgMjAyNg0KUUEgTGVhZA0KQXBwcm92
+ZWQNCkp1biAzMCwgMjAyNg0KTWF1dGlrIFBhdGVsIKhDIFByb2plY3QgRGVsaXZlcnkgTWFuYWdl
+cg0KQXBwcm92ZWQNCkp1bCAxLCAyMDI2DQoNCg0K
+
+--_000_OS7P286MB620487E765B87958A17EE512BFF12OS7P286MB6204JPNP_
+Content-Type: text/html; charset="gb2312"
+Content-Transfer-Encoding: quoted-printable
+
+<html><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"Signature">
+<div style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 12pt;=
+ color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"direction: ltr; text-align: left; text-indent: 0px; line-heig=
+ht: normal; margin: 0cm; font-family: Calibri, Helvetica, sans-serif; font-=
+size: 11pt; color: black;">
+</div>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"direction: ltr; text-align: center; =
+margin: 0in; font-family: Calibri, Helvetica, sans-serif; font-size: 12pt; =
+color: rgb(0, 0, 0);">
+<b>PURNIMA BANK</b></div>
+<div style=3D"direction: ltr; text-align: center; margin: 0in 0in 30pt; fon=
+t-family: Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0,=
+ 0);">
+<i>SentinelAI Fraud Detection Platform</i></div>
+<div style=3D"direction: ltr; text-align: center; margin: 10pt 0in 5pt; fon=
+t-family: Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0,=
+ 0);">
+<b>TEST PLAN &amp; UAT SIGN-OFF</b></div>
+<div style=3D"direction: ltr; text-align: center; margin: 0in 0in 35pt; fon=
+t-family: Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0,=
+ 0);">
+<b>SentinelAI Fraud Detection Platform</b></div>
+<div style=3D"direction: ltr; text-align: center; margin: 0in 0in 45pt; fon=
+t-family: Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0,=
+ 0);">
+Test Strategy, Test Cases &amp; User Acceptance Sign-Off</div>
+<div align=3D"center">
+<table cellspacing=3D"0" cellpadding=3D"0" border=3D"1" style=3D"direction:=
+ ltr; width: 425pt; box-sizing: border-box; border-collapse: collapse; bord=
+er-spacing: 0px;">
+<tbody>
+<tr>
+<td style=3D"direction: ltr; border-width: 1pt; border-style: none; border-=
+color: white; padding: 0in 0.5pt; vertical-align: top; width: 150pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<b>Document Owner:</b></div>
+</td>
+<td style=3D"direction: ltr; border-top: 1pt white; border-right: 1pt white=
+; border-bottom: 1pt white; padding: 0in 0.5pt; vertical-align: top; width:=
+ 275pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Mautik Patel, Project Delivery Manager</div>
+</td>
+</tr>
+<tr>
+<td style=3D"direction: ltr; border-right: 1pt white; border-bottom: 1pt wh=
+ite; border-left: 1pt white; padding: 0in 0.5pt; vertical-align: top; width=
+: 150pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<b>QA Owner:</b></div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt white; border-bottom: 1pt wh=
+ite; padding: 0in 0.5pt; vertical-align: top; width: 275pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+QA Engineering</div>
+</td>
+</tr>
+<tr>
+<td style=3D"direction: ltr; border-right: 1pt white; border-bottom: 1pt wh=
+ite; border-left: 1pt white; padding: 0in 0.5pt; vertical-align: top; width=
+: 150pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<b>Version:</b></div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt white; border-bottom: 1pt wh=
+ite; padding: 0in 0.5pt; vertical-align: top; width: 275pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+1.0</div>
+</td>
+</tr>
+<tr>
+<td style=3D"direction: ltr; border-right: 1pt white; border-bottom: 1pt wh=
+ite; border-left: 1pt white; padding: 0in 0.5pt; vertical-align: top; width=
+: 150pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<b>Date:</b></div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt white; border-bottom: 1pt wh=
+ite; padding: 0in 0.5pt; vertical-align: top; width: 275pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+May 5, 2026</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style=3D"direction: ltr; font-family: Calibri, Helvetica, sans-serif; =
+font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+&nbsp;</div>
+<div style=3D"direction: ltr; font-family: Calibri, Helvetica, sans-serif; =
+font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"direction: ltr; margin: 0.25in 0in 10pt; font-family: Calibri=
+, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<b>1. Test Strategy</b></div>
+<div style=3D"direction: ltr; margin: 0in 0in 8pt; font-family: Calibri, He=
+lvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Testing occurs across four levels: unit testing (engineering, continuous), =
+integration testing (scoring API and case management, Phase 5), model valid=
+ation testing (offline performance and fairness, Phase 6), and User Accepta=
+nce Testing (UAT) with Fraud Operations
+ analysts prior to the production pilot. UAT exit criteria require 100% of =
+Critical and High priority test cases to pass, with no open Severity 1 defe=
+cts.</div>
+<div style=3D"direction: ltr; margin: 0.25in 0in 10pt; font-family: Calibri=
+, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<b>2. Test Environments</b></div>
+<table cellspacing=3D"0" cellpadding=3D"0" border=3D"1" style=3D"direction:=
+ ltr; width: 5in; box-sizing: border-box; border-collapse: collapse; border=
+-spacing: 0px;">
+<tbody>
+<tr>
+<td style=3D"direction: ltr; border-width: 1pt; border-style: solid; border=
+-color: rgb(217, 217, 217); background-color: rgb(10, 38, 71); padding: 4pt=
+ 6pt; width: 1.25in;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<b>Environment</b></div>
+</td>
+<td style=3D"direction: ltr; border-top: 1pt solid rgb(217, 217, 217); bord=
+er-right: 1pt solid rgb(217, 217, 217); border-bottom: 1pt solid rgb(217, 2=
+17, 217); background-color: rgb(10, 38, 71); padding: 4pt 6pt; width: 160pt=
+;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<b>Purpose</b></div>
+</td>
+<td style=3D"direction: ltr; border-top: 1pt solid rgb(217, 217, 217); bord=
+er-right: 1pt solid rgb(217, 217, 217); border-bottom: 1pt solid rgb(217, 2=
+17, 217); background-color: rgb(10, 38, 71); padding: 4pt 6pt; width: 110pt=
+;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<b>Data</b></div>
+</td>
+</tr>
+<tr>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); border-left: 1pt solid rgb(217, =
+217, 217); padding: 4pt 6pt; width: 1.25in;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+DEV</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 160pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Feature and model development</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 110pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Synthetic + anonymized historical sample</div>
+</td>
+</tr>
+<tr>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); border-left: 1pt solid rgb(217, =
+217, 217); padding: 4pt 6pt; width: 1.25in;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+QA/INT</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 160pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+API integration and regression testing</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 110pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Masked production replica (PCI-scoped)</div>
+</td>
+</tr>
+<tr>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); border-left: 1pt solid rgb(217, =
+217, 217); padding: 4pt 6pt; width: 1.25in;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+UAT</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 160pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Analyst acceptance testing</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 110pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Masked production replica, curated scenario set</div>
+</td>
+</tr>
+<tr>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); border-left: 1pt solid rgb(217, =
+217, 217); padding: 4pt 6pt; width: 1.25in;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Pilot (Prod)</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 160pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Champion/challenger, 10% live traffic</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 110pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Live production data</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div style=3D"direction: ltr; margin: 0.25in 0in 10pt; font-family: Calibri=
+, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<b>3. UAT Test Cases (Sample)</b></div>
+<table cellspacing=3D"0" cellpadding=3D"0" border=3D"1" style=3D"direction:=
+ ltr; width: 410pt; box-sizing: border-box; border-collapse: collapse; bord=
+er-spacing: 0px;">
+<tbody>
+<tr>
+<td style=3D"direction: ltr; border-width: 1pt; border-style: solid; border=
+-color: rgb(217, 217, 217); background-color: rgb(10, 38, 71); padding: 4pt=
+ 6pt; width: 40pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<b>TC ID</b></div>
+</td>
+<td style=3D"direction: ltr; border-top: 1pt solid rgb(217, 217, 217); bord=
+er-right: 1pt solid rgb(217, 217, 217); border-bottom: 1pt solid rgb(217, 2=
+17, 217); background-color: rgb(10, 38, 71); padding: 4pt 6pt; width: 160pt=
+;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<b>Test Scenario</b></div>
+</td>
+<td style=3D"direction: ltr; border-top: 1pt solid rgb(217, 217, 217); bord=
+er-right: 1pt solid rgb(217, 217, 217); border-bottom: 1pt solid rgb(217, 2=
+17, 217); background-color: rgb(10, 38, 71); padding: 4pt 6pt; width: 145pt=
+;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<b>Expected Result</b></div>
+</td>
+<td style=3D"direction: ltr; border-top: 1pt solid rgb(217, 217, 217); bord=
+er-right: 1pt solid rgb(217, 217, 217); border-bottom: 1pt solid rgb(217, 2=
+17, 217); background-color: rgb(10, 38, 71); padding: 4pt 6pt; width: 65pt;=
+">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<b>Traces to</b></div>
+</td>
+</tr>
+<tr>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); border-left: 1pt solid rgb(217, =
+217, 217); padding: 4pt 6pt; width: 40pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+TC-01</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 160pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Legitimate low-risk CNP purchase within normal spending pattern</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 145pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Score &lt; threshold; transaction approved with no case created</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 65pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+FR-01</div>
+</td>
+</tr>
+<tr>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); border-left: 1pt solid rgb(217, =
+217, 217); padding: 4pt 6pt; width: 40pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+TC-02</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 160pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+High-velocity transactions (5+ in 10 min) across different merchants</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 145pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Score &gt; threshold; case auto-created with 'velocity spike' reason code</=
+div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 65pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+FR-05, FR-09, FR-10</div>
+</td>
+</tr>
+<tr>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); border-left: 1pt solid rgb(217, =
+217, 217); padding: 4pt 6pt; width: 40pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+TC-03</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 160pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Transaction from a device/IP geolocation &gt;500 miles from cardholder home=
+ address</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 145pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Score elevated; 'unusual location' reason code returned</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 65pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+FR-06, FR-10</div>
+</td>
+</tr>
+<tr>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); border-left: 1pt solid rgb(217, =
+217, 217); padding: 4pt 6pt; width: 40pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+TC-04</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 160pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Scoring service unavailable / times out beyond 400ms</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 145pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Falls back to legacy rules engine; fallback event logged</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 65pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+FR-04</div>
+</td>
+</tr>
+<tr>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); border-left: 1pt solid rgb(217, =
+217, 217); padding: 4pt 6pt; width: 40pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+TC-05</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 160pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Analyst submits case disposition as 'false positive'</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 145pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Disposition recorded and available in labeled retraining dataset within 24 =
+hours</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 65pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+FR-11</div>
+</td>
+</tr>
+<tr>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); border-left: 1pt solid rgb(217, =
+217, 217); padding: 4pt 6pt; width: 40pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+TC-06</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 160pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Fairness check comparing false-positive rate across zip-code income tiers</=
+div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 145pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Disparity remains within the 10% threshold defined by Compliance</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 65pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+FR-14</div>
+</td>
+</tr>
+<tr>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); border-left: 1pt solid rgb(217, =
+217, 217); padding: 4pt 6pt; width: 40pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+TC-07</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 160pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Peak load simulation at 1,200 transactions/second</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 145pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+P95 latency remains =A1=DC200ms with no dropped requests</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 65pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+FR-02, NFR-Scalability</div>
+</td>
+</tr>
+<tr>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); border-left: 1pt solid rgb(217, =
+217, 217); padding: 4pt 6pt; width: 40pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+TC-08</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 160pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Query of a 14-month-old scoring event for a dispute investigation</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 145pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Full record (model version, features, score, decision) retrievable within S=
+LA</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 65pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+FR-12</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div style=3D"direction: ltr; margin: 0.25in 0in 10pt; font-family: Calibri=
+, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<b>4. Defect Severity Definitions</b></div>
+<table cellspacing=3D"0" cellpadding=3D"0" border=3D"1" style=3D"direction:=
+ ltr; width: 5in; box-sizing: border-box; border-collapse: collapse; border=
+-spacing: 0px;">
+<tbody>
+<tr>
+<td style=3D"direction: ltr; border-width: 1pt; border-style: solid; border=
+-color: rgb(217, 217, 217); background-color: rgb(10, 38, 71); padding: 4pt=
+ 6pt; width: 80pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<b>Severity</b></div>
+</td>
+<td style=3D"direction: ltr; border-top: 1pt solid rgb(217, 217, 217); bord=
+er-right: 1pt solid rgb(217, 217, 217); border-bottom: 1pt solid rgb(217, 2=
+17, 217); background-color: rgb(10, 38, 71); padding: 4pt 6pt; width: 280pt=
+;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<b>Definition</b></div>
+</td>
+</tr>
+<tr>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); border-left: 1pt solid rgb(217, =
+217, 217); padding: 4pt 6pt; width: 80pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Severity 1 =A8C Critical</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 280pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+System unusable, incorrect fraud decision at scale, or regulatory non-compl=
+iance; blocks go-live</div>
+</td>
+</tr>
+<tr>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); border-left: 1pt solid rgb(217, =
+217, 217); padding: 4pt 6pt; width: 80pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Severity 2 =A8C High</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 280pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Major function impaired (e.g., reason codes missing); workaround exists but=
+ degrades UAT confidence</div>
+</td>
+</tr>
+<tr>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); border-left: 1pt solid rgb(217, =
+217, 217); padding: 4pt 6pt; width: 80pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Severity 3 =A8C Medium</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 280pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Minor functional gap with limited business impact</div>
+</td>
+</tr>
+<tr>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); border-left: 1pt solid rgb(217, =
+217, 217); padding: 4pt 6pt; width: 80pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Severity 4 =A8C Low</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 280pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Cosmetic or documentation issue</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div style=3D"direction: ltr; margin: 0.25in 0in 10pt; font-family: Calibri=
+, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<b>5. UAT Sign-Off</b></div>
+<div style=3D"direction: ltr; margin: 0in 0in 8pt; font-family: Calibri, He=
+lvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+The undersigned confirm that User Acceptance Testing has been completed aga=
+inst the test cases above, that all Critical and High severity defects have=
+ been resolved or formally waived, and that the system is approved to proce=
+ed to the production pilot phase.</div>
+<table cellspacing=3D"0" cellpadding=3D"0" border=3D"1" style=3D"direction:=
+ ltr; width: 370pt; box-sizing: border-box; border-collapse: collapse; bord=
+er-spacing: 0px;">
+<tbody>
+<tr>
+<td style=3D"direction: ltr; border-width: 1pt; border-style: solid; border=
+-color: rgb(217, 217, 217); background-color: rgb(10, 38, 71); padding: 4pt=
+ 6pt; width: 165pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<b>Name / Role</b></div>
+</td>
+<td style=3D"direction: ltr; border-top: 1pt solid rgb(217, 217, 217); bord=
+er-right: 1pt solid rgb(217, 217, 217); border-bottom: 1pt solid rgb(217, 2=
+17, 217); background-color: rgb(10, 38, 71); padding: 4pt 6pt; width: 110pt=
+;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<b>Decision</b></div>
+</td>
+<td style=3D"direction: ltr; border-top: 1pt solid rgb(217, 217, 217); bord=
+er-right: 1pt solid rgb(217, 217, 217); border-bottom: 1pt solid rgb(217, 2=
+17, 217); background-color: rgb(10, 38, 71); padding: 4pt 6pt; width: 95pt;=
+">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<b>Date</b></div>
+</td>
+</tr>
+<tr>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); border-left: 1pt solid rgb(217, =
+217, 217); padding: 4pt 6pt; width: 165pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+David Okonjo =A8C Head of Fraud Operations</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 110pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Approved</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 95pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Jul 1, 2026</div>
+</td>
+</tr>
+<tr>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); border-left: 1pt solid rgb(217, =
+217, 217); padding: 4pt 6pt; width: 165pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+QA Lead</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 110pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Approved</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 95pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Jun 30, 2026</div>
+</td>
+</tr>
+<tr>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); border-left: 1pt solid rgb(217, =
+217, 217); padding: 4pt 6pt; width: 165pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Mautik Patel =A8C Project Delivery Manager</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 110pt;"=
+>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Approved</div>
+</td>
+<td style=3D"direction: ltr; border-right: 1pt solid rgb(217, 217, 217); bo=
+rder-bottom: 1pt solid rgb(217, 217, 217); padding: 4pt 6pt; width: 95pt;">
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Jul 1, 2026</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div style=3D"direction: ltr; margin: 0in; font-family: Calibri, Helvetica,=
+ sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+&nbsp;</div>
+<div style=3D"direction: ltr; font-family: Calibri, Helvetica, sans-serif; =
+font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+</body>
+</html>
+
+--_000_OS7P286MB620487E765B87958A17EE512BFF12OS7P286MB6204JPNP_--
