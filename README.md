@@ -3,22 +3,27 @@
 # 🤖 Enterprise AI Knowledge Assistant
 
 ### Transform Enterprise Documents into Intelligent Conversations
-
-**A private, secure, and fully local Retrieval-Augmented Generation (RAG) platform that enables organizations to search, understand, and interact with enterprise knowledge using AI.**
-
-Enterprise AI Knowledge Assistant is a **private Retrieval-Augmented Generation (RAG)** platform that transforms enterprise documents into an intelligent, searchable knowledge base. Instead of manually searching PDFs, emails, presentations, spreadsheets, policies, and reports, users simply ask questions in natural language and receive accurate, source-backed answers - powered entirely by **local AI**.
-
 ---
 
 ### 🔒 100% Local • 🔐 Private • 🧠 AI Powered • ⚡ Enterprise Ready
+<p align="center">
 
-<br>
+![Version](https://img.shields.io/badge/Version-v1.0.0-success?style=for-the-badge)
+![Python](https://img.shields.io/badge/Python-3.11+-blue?style=for-the-badge&logo=python)
+![Streamlit](https://img.shields.io/badge/Streamlit-UI-red?style=for-the-badge&logo=streamlit)
+![Ollama](https://img.shields.io/badge/Ollama-Local%20LLM-black?style=for-the-badge)
+![Qwen](https://img.shields.io/badge/Qwen2.5-3B-green?style=for-the-badge)
+![ChromaDB](https://img.shields.io/badge/ChromaDB-Vector%20Database-purple?style=for-the-badge)
+![RAG](https://img.shields.io/badge/RAG-Retrieval--Augmented--Generation-orange?style=for-the-badge)
+![Sentence%20Transformers](https://img.shields.io/badge/Sentence-Transformers-blueviolet?style=for-the-badge)
+![LangChain](https://img.shields.io/badge/LangChain-Text%20Splitter-darkgreen?style=for-the-badge)
+![PyMuPDF](https://img.shields.io/badge/PyMuPDF-PDF%20Processing-darkred?style=for-the-badge)
+![Tesseract](https://img.shields.io/badge/Tesseract-OCR-lightgrey?style=for-the-badge)
+![MIT License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
-![Version](https://img.shields.io/badge/Version-v1.0.0-success?style=for-the-badge) ![Python](https://img.shields.io/badge/Python-3.11+-blue?style=for-the-badge&logo=python) ![Streamlit](https://img.shields.io/badge/Streamlit-UI-red?style=for-the-badge&logo=streamlit) ![Ollama](https://img.shields.io/badge/Ollama-Local%20LLM-black?style=for-the-badge)
-![Qwen](https://img.shields.io/badge/Qwen2.5-3B-green?style=for-the-badge) ![ChromaDB](https://img.shields.io/badge/ChromaDB-Vector%20Database-purple?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
+</p>
 
-<br>
+**Enterprise AI Knowledge Assistant** enables organizations to transform enterprise knowledge into an AI-powered conversational experience. Built as a **private, secure, and fully local Retrieval-Augmented Generation (RAG)** platform, it allows users to ask questions in natural language and receive accurate, source-backed answers from documents such as **PDFs, emails, presentations, spreadsheets, policies, and reports**—without relying on cloud AI services.
 
 > **From project documentation and company policies to healthcare protocols, compliance manuals, emails, and technical documentation — upload your enterprise knowledge once and let AI answer your questions instantly.**
 
