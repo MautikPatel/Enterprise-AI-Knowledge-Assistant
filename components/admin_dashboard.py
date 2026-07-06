@@ -21,6 +21,69 @@ from services.vector_store_service import (
 )
 
 from components.document_inventory import show_document_inventory
+
+# --------------------------------------------------
+# Enterprise-style CSS (visual only)
+# --------------------------------------------------
+
+def _inject_admin_css():
+    st.markdown(
+        """
+        <style>
+        .ent-metric-card {
+            background: #ffffff;
+            border: 1px solid #eef0f4;
+            border-radius: 14px;
+            padding: 18px 20px;
+            box-shadow: 0 1px 3px rgba(16, 24, 40, 0.06);
+            height: 100%;
+        }
+        .ent-metric-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 6px;
+        }
+        .ent-metric-value {
+            font-size: 30px;
+            font-weight: 700;
+            color: #111827;
+            line-height: 1.1;
+        }
+        .ent-section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 2px;
+        }
+        .ent-section-caption {
+            color: #6b7280;
+            font-size: 13.5px;
+            margin-bottom: 10px;
+        }
+        div[data-testid="stButton"] > button {
+            border-radius: 8px;
+            font-weight: 600;
+            border: 1px solid #e5e7eb;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def _metric_card(label, value):
+    st.markdown(
+        f"""
+        <div class="ent-metric-card">
+            <div class="ent-metric-label">{label}</div>
+            <div class="ent-metric-value">{value}</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 # --------------------------------------------------
 # Build Knowledge Base
 # --------------------------------------------------
@@ -63,15 +126,19 @@ def build_knowledge_base():
 
 def show_admin_dashboard():
 
-    st.header("⚙️ Administrator Dashboard")
+    _inject_admin_css()
 
-    st.caption(
-        "Manage enterprise documents and maintain the Knowledge Base."
+    st.markdown(
+        '<div class="ent-section-title">⚙️ Administrator Dashboard</div>',
+        unsafe_allow_html=True,
     )
 
-    st.divider()
+    st.markdown(
+        '<div class="ent-section-caption">Manage enterprise documents and maintain the Knowledge Base.</div>',
+        unsafe_allow_html=True,
+    )
 
-   # Always load current documents from disk
+    # Always load current documents from disk
 
     documents = get_loaded_documents()
 
@@ -108,32 +175,24 @@ def show_admin_dashboard():
 
     row1 = st.columns(3)
 
-    row1[0].metric(
-    "📄 Documents",
-    len(documents)
-)
+    with row1[0]:
+        _metric_card("📄 Documents", len(documents))
 
-    row1[1].metric(
-        "📚 Pages",
-        total_pages
-    )
+    with row1[1]:
+        _metric_card("📚 Pages", total_pages)
 
-    row1[2].metric(
-        "🧩 Chunks",
-        len(chunks)
-    )
+    with row1[2]:
+        _metric_card("🧩 Chunks", len(chunks))
+
+    st.write("")
 
     row2 = st.columns(3)
 
-    row2[0].metric(
-        "🧠 Vectors",
-        vectors
-    )
+    with row2[0]:
+        _metric_card("🧠 Vectors", vectors)
 
-    row2[1].metric(
-        "📂 File Types",
-        file_types
-    )
+    with row2[1]:
+        _metric_card("📂 File Types", file_types)
 
     with row2[2]:
 
@@ -151,7 +210,10 @@ def show_admin_dashboard():
     # Upload Documents
     # --------------------------------------------------
 
-    st.subheader("📤 Upload Documents")
+    st.markdown(
+        '<div class="ent-section-title" style="font-size:18px;">📤 Upload Documents</div>',
+        unsafe_allow_html=True,
+    )
 
     uploaded_files = st.file_uploader(
 
@@ -213,7 +275,10 @@ def show_admin_dashboard():
     # Knowledge Base
     # --------------------------------------------------
 
-    st.subheader("🧠 Knowledge Base")
+    st.markdown(
+        '<div class="ent-section-title" style="font-size:18px;">🧠 Knowledge Base</div>',
+        unsafe_allow_html=True,
+    )
 
     kb_col1, kb_col2 = st.columns(2)
 
